@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+        .header {
+            padding: 80px;
+            margin-bottom: 25px;
+            text-align: center;
+            background: #fff;
+            color: #77207D;
+        }
+
+        .header h1 {
+            font-size: 40px;
+        }
+        .header h2 {
+            font-size: 25px;
+        }
+        .button {
+          margin-bottom: 20px;
+          padding: 15px 25px;
+          font-size: 24px;
+          text-align: center;
+          cursor: pointer;
+          outline: none;
+          color: #fff;
+          background-color: #9C02A7;
+          border: none;
+          border-radius: 10px;
+          box-shadow: 0 9px #999;
+        }
+
+        .button:hover {background-color: #C936D3}
+
+        .button:active {
+          background-color: #65016C;
+          box-shadow: 0 5px #666;
+          transform: translateY(4px);
+        }
+    </style>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <div class="header">
+        <h1>Поздравляем!</h1>
+        <h2>{{ message }}</h2>
+        <form action='/' method="get">
+            <button class="button" type="submit">Выйти</button>
+        </form>
+    </div>
+
+</body>
+</html>
