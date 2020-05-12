@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .header {
+            padding: 5px;
+            margin-bottom: 25px;
+            text-align: center;
+            background: #77207D;
+            color: #fff;
+        }
+
+        .header h1 {
+            font-size: 40px;
+        }
+        .column {
+            text-align: center;
+            float: left;
+            width: 50%;
+        }
+        .row:after {
+            content: "";
+            display: table;
+            clear: both;
+        }
+        .left {
+            width: 75%;
+            background-color: #fff;
+        }
+
+        .right {
+            width: 25%;
+            background-color: #fff;
+        }
+        * {
+            box-sizing: border-box;
+        }
+
+        .columns {
+            float: left;
+            width: 33.3%;
+            padding: 8px;
+        }
+
+        .level {
+            list-style-type: none;
+            border: 1px solid #111;
+            margin: 0;
+            padding: 0;
+        }
+
+        .level:hover {
+            box-shadow: 0 12px 8px 0 rgba(0,0,0,0.2)
+        }
+
+        .level .header {
+            background-color: #77207D;
+            color: white;
+            font-size: 25px;
+            margin: 0;
+        }
+
+        .level button {
+            border-top: 1px solid black;
+            text-align: center;
+            background-color: white;
+            color: black;
+            width: 100%;
+            padding: 14px 28px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        .easy:hover{
+            background-color: green;
+            color: white;
+        }
+        .medium:hover{
+            background-color: orange;
+            color: white;
+        }
+        .hard:hover{
+            background-color: red;
+            color: white;
+        }
+
+        .button {
+          padding: 40px;
+          margin-top: 50px;
+          padding: 15px 25px;
+          font-size: 24px;
+          text-align: center;
+          cursor: pointer;
+          outline: none;
+          width: 75%;
+          color: #fff;
+          background-color: #77207D;
+          border: none;
+          border-radius: 10px;
+          box-shadow: 0 9px #999;
+        }
+
+        .button:hover {background-color: #9C02A7}
+
+        .button:active {
+          background-color: #65016C;
+          box-shadow: 0 5px #666;
+          transform: translateY(4px);
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgb(0,0,0);
+            background-color: rgba(0,0,0,0.4);
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Выберите уровень</h1>
+    </div>
+    <div class="row">
+      <div class="column left">
+          <div class="columns">
+              <ul class="level">
+                <li class="header">Легко</li>
+                    {% for item in easy_levels %}
+                        <form action="/level/{{ item[0] }}" method="post" id="form{{ item[0] }}">
+                            <button class="easy", type="submit">{{ item[1] }}</button>
+                        </form>
+                    {% endfor %}
+              </ul>
+          </div>
+          <div class="columns">
+              <ul class="level">
+                <li class="header">Нормально</li>
+                    {% for item in medium_levels %}
+                        <form action="/level/{{ item[0] }}" method="post" id="form{{ item[0] }}">
+                            <button class="medium", type="submit">{{ item[1] }}</button>
+                        </form>
+                    {% endfor %}
+              </ul>
+          </div>
+          <div class="columns">
+              <ul class="level">
+                <li class="header">Сложно</li>
+                    {% for item in hard_levels %}
+                        <form action="/level/{{ item[0] }}" method="post" id="form{{ item[0] }}">
+                            <button class="hard", type="submit">{{ item[1] }}</button>
+                        </form>
+                    {% endfor %}
+              </ul>
+          </div>
+      </div>
+      <div class="column right">
+          <button class="button" id="myBtn"> Справка </button>
+      </div>
+    </div>
+
+    <div id="myModal" class="modal">
+      <div class="modal-content">
+          <span class="close">×</span>
+          <h2>Суть игры</h2>
+          <p>
+              Вы выбираете "уровень" - статью, с которой вы начнёте ваш ссылочный путь к Гитлеру. <br>
+              Как только вы выберете статью, вы увидите 9 случайных ссылок с этой статьи на другие. <br>
+              Выбрав одну, снова увидите 9 случайных ссылок c выбранной статьи на другие и так далее. <br>
+              Цель - за наименьшее количество переходов найти ссылку 'Гитлер, Адольф' <br>
+              Всё просто.
+          </p>
+          <h2>Детали</h2>
+          <ul>
+              <li>
+                  Если вы наткнетесь на статью, в которой есть ссылка на Гитлера
+                  (именно ссылка, а не упоминание текстом),
+                  то она 100% будет присутствовать среди девяти ссылок, показанных вам.
+              </li>
+              <li>
+                  В ходе игры вы будете видеть заголовок - название текущей статьи.
+                  Это ссылка на статью Википедии (открывайте в новой вкладке)
+              </li>
+              <li>
+                  В оригинальной идее возможна такая цепочка: Россия -> Германия -> Гитлер.
+                  Однако в этой игре вы не будете гарантированно быстро добираться до Гитлера:
+                  так как из всех ссылок выбираются случайные 9, то промежуточное звено может
+                  как попасть, так и не попасть в эту избранную девятку.
+              </li>
+              <li>
+                  Распределение статей по уровню сложности весьма субъективно.
+              </li>
+          </ul>
+      </div>
+    </div>
+
+    <script>
+    var modal = document.getElementById('myModal');
+    var btn = document.getElementById("myBtn");
+    var span = document.getElementsByClassName("close")[0];
+
+    btn.onclick = function() {
+        modal.style.display = "block";
+    }
+
+    span.onclick = function() {
+        modal.style.display = "none";
+    }
+
+    window.onclick = function(event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+    </script>
+
+</body>
+</html>
