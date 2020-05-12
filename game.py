@@ -76,7 +76,7 @@ class Game:
 
     def __init_levels__(self):
         self.levels.append(Level(3, 3, "Германия"))
-        self.levels.append(Level(3, 3, "Пропоганда"))
+        self.levels.append(Level(3, 3, "Пропаганда"))
         self.levels.append(Level(3, 3, "Право"))
         self.levels.append(Level(3, 3, "Rammstein"))
         self.levels.append(Level(3, 3, "Москва"))
@@ -92,7 +92,7 @@ class Game:
         self.levels.append(Level(3, 3, "Йога"))
         self.levels.append(Level(3, 3, "Числитель"))
         self.levels.append(Level(3, 3, "Деепричастие"))
-        self.levels.append(Level(3, 3, "Короновирусы"))
+        self.levels.append(Level(3, 3, "Коронавирусы"))
         self.levels.append(Level(3, 3, "Система управления версиями"))
         self.levels.append(Level(3, 3, "Люминисценция"))
 
