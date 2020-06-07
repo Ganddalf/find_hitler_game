@@ -1,6 +1,7 @@
 from flask import Flask, render_template
 from game import Game
-
+import unittest
+from test import Test_Game
 
 app = Flask(__name__)
 game = Game()
@@ -37,4 +38,5 @@ def win():
 
 
 if __name__ == "__main__":
+    #unittest.main()
     app.run(debug=True)

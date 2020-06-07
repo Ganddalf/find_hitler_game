@@ -5,7 +5,7 @@ import random, wikipedia
 class Level:
     counter_ID = 0
 
-    def __init__(self, width=6, height=6, page="Википедия",
+    def __init__(self, width=3, height=3, page="Википедия",
                  final_page="Гитлер, Адольф"):
         self.ID = Level.counter_ID
         Level.counter_ID += 1
@@ -15,11 +15,18 @@ class Level:
         self.height = height
 
         self.prev_page_name = ""
-        self.page_name = ""
+        self.page_name = page
         self.prev_table = []
+        self.links = []
         self.table = []
 
         self.step = 0
+
+    def __eq__(self, other):
+        return self.width == other.width and self.height == other.height and\
+               self.start_page_name == other.start_page_name and\
+               self.final_page == other.final_page
+
 
     def show_state(self):
         return render_template('game.html', table=self.table,
@@ -28,14 +35,14 @@ class Level:
                                step=self.step)
 
     def set_table(self):
-        links = wikipedia.page(self.page_name).links
-        random.shuffle(links)
+        self.links = wikipedia.page(self.page_name).links
+        random.shuffle(self.links)
 
-        if self.final_page in links:
-            links.remove(self.final_page)
-            links[0] = self.final_page
+        if self.final_page in self.links:
+            self.links.remove(self.final_page)
+            self.links[0] = self.final_page
 
-        links = links[:self.width * self.height]
+        links = self.links[:self.width * self.height]
         links = list(sorted(links))
 
         self.table.clear()
@@ -76,7 +83,7 @@ class Game:
 
     def __init_levels__(self):
         self.levels.append(Level(3, 3, "Германия"))
-        self.levels.append(Level(3, 3, "Пропоганда"))
+        self.levels.append(Level(3, 3, "Пропаганда"))
         self.levels.append(Level(3, 3, "Право"))
         self.levels.append(Level(3, 3, "Rammstein"))
         self.levels.append(Level(3, 3, "Москва"))
@@ -92,7 +99,7 @@ class Game:
         self.levels.append(Level(3, 3, "Йога"))
         self.levels.append(Level(3, 3, "Числитель"))
         self.levels.append(Level(3, 3, "Деепричастие"))
-        self.levels.append(Level(3, 3, "Короновирусы"))
+        self.levels.append(Level(3, 3, "Коронавирусы"))
         self.levels.append(Level(3, 3, "Система управления версиями"))
         self.levels.append(Level(3, 3, "Люминисценция"))
 
