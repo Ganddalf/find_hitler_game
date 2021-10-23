@@ -12,4 +12,6 @@ flask, wikipedia
 
 # Запуск
 python app.py
+
+
 Также можно покликать [здесь](https://find-hitler-game.herokuapp.com/)
